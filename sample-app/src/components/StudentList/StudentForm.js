@@ -1,53 +1,75 @@
-import React, { useState } from 'react';
+/**
+ * 
+ * StudentForm
+ * 
+ */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-function StudentFrom(props) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+function StudentFrom({
+    editable,
+    students,
+    setStudents,
+    toEdit,
+    closeEditForm,
+    closeForm
+}) {
+    const { register, handleSubmit } = useForm();
+    const departments = ['Cse', 'Eee', 'Ece', 'Mech', 'Civil'];
+    const years = [1, 2, 3, 4];
 
     const addStudent = (data) => {
-
-        if (props.editable) {
-            props.students[props.toEdit] = data;
-            props.setStudents([...props.students]);
-            props.closeEditForm();
+        if (editable) {
+            students[toEdit] = data;
+            setStudents([...students]);
+            closeEditForm();
         }
         else {
-            props.setStudents([...props.students, data]);
-            props.hideFormComponent();
+            setStudents([...students, data]);
+            closeForm();
         }
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(addStudent)}>
-                <input
-                    defaultValue={props.editable ? props.students[props.toEdit].rollnumber : ""}
-                    type="text"
-                    {...register('rollnumber')}
-                    placeholder="Roll Number"
-                    required /><br />
-                <input
-                    defaultValue={props.editable ? props.students[props.toEdit].name : ""}
-                    type="text"
-                    {...register('name')}
-                    placeholder="Student Name"
-                    required /><br />
-                <select defaultValue={props.editable ? props.students[props.toEdit].year : ""} {...register("year")}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <select defaultValue={props.editable ? props.students[props.toEdit].department : ""} {...register("department")}>
-                    <option value="Cse">CSE</option>
-                    <option value="Mech">MECH</option>
-                    <option value="Ece">ECE</option>
-                    <option value="Eee">EEE</option>
-                    <option value="Civil">CIVIl</option>
-                </select>
-                <input type="submit" />
-            </form>
-        </div>
+        <form onSubmit={handleSubmit(addStudent)}>
+            {/*Roll Number*/}
+            <input
+                defaultValue={editable ? students[toEdit].rollnumber : ""}
+                type="text"
+                {...register('rollnumber')}
+                placeholder="Roll Number" required /><br />
+            {/*Student Name*/}
+            <input
+                defaultValue={editable ? students[toEdit].name : ""}
+                type="text"
+                {...register('name')}
+                placeholder="Student Name"
+                required /><br />
+            {/*Year*/}
+            <select
+                defaultValue={editable ? students[toEdit].year : ""}
+                {...register("year")}>
+                {years.map((year, index) => <option key={index} value={year}>{year}</option>)}
+            </select><br />
+            {/*Department*/}
+            <select
+                defaultValue={editable ? students[toEdit].department : ""}
+                {...register("department")}>
+                {departments.map((department, index) => <option key={index} value={department}>{department}</option>)}
+            </select><br />
+            {/*Submit*/}
+            <input type="submit" />
+        </form>
     );
-
 }
+
+StudentFrom.propTypes = {
+    editable: PropTypes.bool.isRequired,
+    students: PropTypes.array.isRequired,
+    setStudents: PropTypes.func.isRequired,
+    toEdit: PropTypes.number,
+    closeEditForm: PropTypes.func,
+    closeForm: PropTypes.func
+}
+
 export default StudentFrom;

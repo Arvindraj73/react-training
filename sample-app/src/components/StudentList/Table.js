@@ -1,41 +1,47 @@
+/**
+ * 
+ * Table
+ * 
+ */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 import edit from '../../edit.svg';
 import close from '../../close.svg';
 import StudentForm from './StudentForm';
-/**
- * Table for students
- * @param {object} props Component props from BookFrom
- * @param {array} props.students array of students
- * @param {object} student individual student details
- * @param {number} props.student.rollnumber roll number of student
- * @param {string} props.student.name name of student
- * @param {number} props.student.year year of student
- * @param {string} props.student.department department of student
- */
-function Table(props) {
+
+function Table(
+    {
+        students,
+        setStudents,
+
+    }
+) {
 
     const [showEdit, setShowEdit] = useState(false);
     const [idToEdit, setIdToEdit] = useState();
     const [rowsToDelete, setRowsToDelete] = useState([]);
     const [checked, setChecked] = useState(false);
 
+    const headers = ['Select', 'Roll Number', 'Student Name', 'Year', 'Department', 'Action'];
+
     const showEditForm = (event) => {
         setShowEdit(true);
         setIdToEdit(event.target.id);
     };
-    const closeEditForm = (event) => {
+    const closeEditForm = () => {
         setShowEdit(false);
     };
 
     const deleteSelected = () => {
-        rowsToDelete.map(row => {
-
-            props.students.map((student, index) => {
-                if (student.rollnumber === row) props.students.splice(index, 1);
-            });
-        })
-        props.setStudents([...props.students]);
-        setRowsToDelete([]);
+        if (window.confirm("Do you want to delete the selected fields")) {
+            rowsToDelete.map(row => {
+                students.map((student, index) => {
+                    (student.rollnumber === row) && students.splice(index, 1);
+                });
+            })
+            setStudents([...students]);
+            setRowsToDelete([]);
+        }
     };
 
     const handleChecked = (event) => {
@@ -53,25 +59,28 @@ function Table(props) {
 
     return (
         <div>
+            <button onClick={deleteSelected}>Delete</button>
+            <button onClick={handleSelected}>Select All</button>
             <table border='1'>
                 <thead>
                     <tr>
-                        <th>Select</th>
-                        <th>Roll Number</th>
-                        <th>Student Name</th>
-                        <th>Year</th>
-                        <th>Department</th>
-                        <th>Action</th>
+                        {headers.map((header, index) => <th key={index}>{header}</th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    {props.students.map((student, index) => (
+                    {students.map((student, index) => (
                         <tr key={student.rollnumber}>
+                            {/*CheckBox*/}
                             <td><input type="checkbox" name={student.rollnumber} defaultChecked={checked} onChange={handleChecked} /></td>
+                            {/*Roll Number*/}
                             <td>{student.rollnumber}</td>
+                            {/*Student Name*/}
                             <td>{student.name}</td>
+                            {/*Year*/}
                             <td>{student.year}</td>
+                            {/*Department*/}
                             <td>{student.department}</td>
+                            {/*Edit Button*/}
                             <td>
                                 <button id={index} onClick={showEdit ? closeEditForm : showEditForm}>
                                     <img id={index} src={showEdit ? close : edit} alt="Edit" width="20px" height="20px"></img>
@@ -81,12 +90,15 @@ function Table(props) {
                     ))}
                 </tbody>
             </table>
-            <button onClick={deleteSelected}>Delete</button>
-            {/* {checked ? <button onClick={handleSelected}>Deselect All</button> :  */}
-            <button onClick={handleSelected}>Select All</button>
-            { showEdit ? <StudentForm editable={true} toEdit={idToEdit} students={props.students} setStudents={props.setStudents} closeEditForm={closeEditForm} /> : null}
+            {/*Edit Form*/}
+            { showEdit ? <StudentForm editable={true} toEdit={idToEdit} students={students} setStudents={setStudents} closeEditForm={closeEditForm} /> : null}
         </div >
     );
 }
+
+Table.propTypes = {
+    students: PropTypes.array,
+    setStudents: PropTypes.func
+};
 
 export default Table;

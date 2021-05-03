@@ -10,10 +10,9 @@ function App() {
     <div>
       <p>Student List</p>
       <Student />
+      <LoginForm />
     </div>
   );
 }
 
 export default App;
-
-  //gitlens

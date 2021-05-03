@@ -8,14 +8,6 @@ import { useForm } from 'react-hook-form';
 import { vestResolver } from '@hookform/resolvers/vest';
 import vest, { test, enforce } from 'vest';
 
-
-/**
- * test(field, errormessage, callback)
- * @param field - input field to be validated
- * @param errormessage - the message to be displayed in case of error
- * @param callback - callback function to preform the validation logic
- * 
- */
 const validationSuite = vest.create((data) => {
     test('password', 'Password must be at least 8 chars', () => {
         enforce(data.password).longerThanOrEquals(8);
@@ -38,29 +30,33 @@ const validationSuite = vest.create((data) => {
 });
 
 const LoginForm = () => {
-    // const [password, setPassword] = useState();
-    // const [email, setEmail] = useState();
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: vestResolver(validationSuite) });
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: vestResolver(validationSuite) });
     const submitData = (data, event) => {
         console.log(data);
         event.target[0].value = "";
         event.target[1].value = "";
     }
 
+    const toggleShowPassword = () => {
+        showPassword ? setShowPassword(false) : setShowPassword(true);
+    };
+
     return (
         <form onSubmit={handleSubmit(submitData)}>
+            {/*Email*/}
             <input type="email"  {...register('email')} placeholder="Email" required /><br />
-
-            <input type="password"  {...register('password')} placeholder="Password" required /><br />
+            {/*password*/}
+            <input type={showPassword?"text":"password"}  {...register('password')} placeholder="Password" required /><br />
             {errors.password && <p>{errors.password.message}</p>}<br />
-
+            {/*Button Show Password*/}
+            <button onClick={toggleShowPassword}>{showPassword ? "Hide Password" : "Show Password"}</button>
+            {/*Button Submit*/}
             <input type="submit" />
         </form>
     );
 }
 
 export default LoginForm;
-
-//reset in useform
-//show password
