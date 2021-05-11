@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Table from './Table';
+import Table from '../Table/Table';
 import './styles.css';
 
-const Pagination = () => {
+const pageOptions = [10, 20, 50];
+const UsersList = () => {
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,7 @@ const Pagination = () => {
                 setData(json);
             })
             .catch(err => {
-                console.log(err);
+                alert(err);
             })
     }, []);
 
@@ -52,9 +53,6 @@ const Pagination = () => {
         }
         setCurrentPage(page);
     };
-
-    console.log(minPageLimit);
-    console.log(maxPageLimit);
 
     const handleTableLimit = (event) => {
         setItemsPerPage(Number(event.target.value));
@@ -113,10 +111,7 @@ const Pagination = () => {
                 </ul>
                 {/* Select No of Rows in table */}
                 <select onChange={handleTableLimit}>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                    {pageOptions.map(pageOption => <option key={pageOption}>{pageOption}</option>)}
                     <option value={data.length}>All</option>
                 </select>
                 {/* Goto input */}
@@ -132,4 +127,4 @@ const Pagination = () => {
     );
 };
 
-export default Pagination;
+export default UsersList;

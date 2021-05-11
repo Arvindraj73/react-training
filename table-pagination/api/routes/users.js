@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let MOCK_DATA = require('../MOCK_DATA.json');
+const express = require('express');
+const router = express.Router();
+const MOCK_DATA = require('./MOCK_DATA.json');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
