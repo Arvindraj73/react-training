@@ -46,31 +46,31 @@ The demo application includes:
 
 Milestones:
 - M1 (Week 1 to 2) 
-* 3 developers
-* Requirements finalization
-* Initial SDK setup
-* SDK - Integrating Nft.storage to store metadata and file
-* SDK - Integrating HTS to issue NFT
-* Budget requested: $20,000
+ * 3 developers
+ * Requirements finalization
+ * Initial SDK setup
+ * SDK - Integrating Nft.storage to store metadata and file
+ * SDK - Integrating HTS to issue NFT
+ * Budget requested: $20,000
 - M2 (Week 3) 
-* 2 developers
-* SDK - Support for checking status of NFTs
-* SDK - Support for HEX extension
-* SDK Testing
-* Budget requested: $15,000
+ * 2 developers
+ * SDK - Support for checking status of NFTs
+ * SDK - Support for HEX extension
+ * SDK Testing
+ * Budget requested: $15,000
 - M3 (Week 4)
-* 2 developers
-* Demo Marketplace Application setup
-* Front-end for the demo marketplace application
-* Integrating the sdk with Front-end application
-* Demo marketplace Application Testing
-* Budget requested: $20,000
+ * 2 developers
+ * Demo Marketplace Application setup
+ * Front-end for the demo marketplace application
+ * Integrating the sdk with Front-end application
+ * Demo marketplace Application Testing
+ * Budget requested: $20,000
 - M4 (Week 5) 
-* 2 Developers
-* Regression testing
-* Bug fixes and Improvements
-* Deploying Demo Application
-* Budget requested: $20,000
+ * 2 Developers
+ * Regression testing
+ * Bug fixes and Improvements
+ * Deploying Demo Application
+ * Budget requested: $20,000
 ## Total Budget Requested
 
 $75,000
