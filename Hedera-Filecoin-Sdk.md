@@ -1,4 +1,4 @@
-# Open Grant Proposal: `NFT market built on Filecoin and Hedera Hashgraph`
+# RFP Proposal: `NFT market built on Filecoin and Hedera Hashgraph`
 
 **Name of Project:** NFT browser using HTS and Filecoin’s decentralized storage service
 
